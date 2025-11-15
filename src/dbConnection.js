@@ -8,9 +8,11 @@
 
 const mongoose = require("mongoose");
 const dbConnection = () => {
-  mongoose.connect(process.env?.MONGOURL || "mongodb://localhost:27017/blog-api")
+  mongoose
+    .connect(process.env?.MONGOURL || "mongodb://localhost:27017/blog-api")
 
     .then(() => console.log("MongoDB connected successfully."))
-    .catch(() => console.log("MongoDB connection failed."))
-    
+    .catch(() => console.log("MongoDB connection failed."));
 };
+
+module.exports = dbConnection
