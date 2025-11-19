@@ -33,7 +33,9 @@ const ModelSchema = new mongoose.Schema(
             ], // Gelen data formatının doğrulunu kontrol etme.
             get: (data) => data, // Bu field'a erişilmek istendiğinde otomatik çalışan fonksion.
             set: (data) => data, // Bu field'a veri kaydedilmek istendiğinde otomatik çalışan fonksion.
-        }
+            },
+
+        fieldName2: String, // ShortHand
 
 
     }, {
