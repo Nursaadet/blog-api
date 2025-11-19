@@ -1,10 +1,12 @@
 "use strict";
 /* -------------------------------------------------------
     EXPRESSJS - BLOG Project with Mongoose
-------------------------------------------------------- *
+------------------------------------------------------- */
 // Mongoose:
 
 const mongoose = require("mongoose");
+
+/*------------------------------------------------------- *
 
 // const ModelName = new mongoose.Schema({ ...fields }, { ...settings })
 const ModelSchema = new mongoose.Schema(
@@ -39,11 +41,27 @@ const ModelSchema = new mongoose.Schema(
         timestamps: true // createdAt ve updatedAt otomatik yönetilsin. (tanımlamaya gerek yok)
     },
 )
-    
+
   const ModelName = mongoose.model('ModelName', ModelSchema)
 );
 
 /* ------------------------------------------------------- */
-// BlogCategory Model:
+// BlogCategory Schema:
+
+const BlogCategorySchema = new mongoose.Schema(
+  {
+    // _id
+
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+  },
+  {
+    collection: "blogcategories",
+    timestamps: true,
+  }
+);
 
 /* ------------------------------------------------------- */
