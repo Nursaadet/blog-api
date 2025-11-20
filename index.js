@@ -28,6 +28,11 @@ app.all('/', (req, res) => {
 })
 
 /* ------------------------------------------------------- */
+// Routes:
+
+app.use('/blog', require('./src/routes/blogRouter'))
+
+/* ------------------------------------------------------- */
 
 // Catch Errors:
 app.use(require('./src/errorHandler'))
