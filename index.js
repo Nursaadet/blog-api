@@ -18,6 +18,9 @@ app.use(express.json())
 // dbConnection();
 require('./src/dbConnection')()
 
+// Catch error from async:
+require('express-async-errors')
+
 /* ------------------------------------------------------- */
 
 app.all('/', (req, res) => {
