@@ -12,7 +12,7 @@ module.exports.blogCategory = {
 
     create: async (req, res) => {
 
-        
+        res.send('create method')
 
     }
 

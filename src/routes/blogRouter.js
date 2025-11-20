@@ -14,8 +14,8 @@ const { blogCategory, blogPost } = require('../controllers/blogController')
 // URL: /blog ->
 
 // BlogCategory
-router.route('/')
-    .post()
+router.route('/category')
+    .post(blogCategory.create)
 
 /* ------------------------------------------------------- */
 module.exports = router
