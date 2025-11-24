@@ -9,9 +9,18 @@ const { BlogCategory, BlogPost } = require("../models/blogModel");
 // BlogCategory Controller:
 
 module.exports.blogCategory = {
-  create: async (req, res) => {
-    // res.send('create method')
+  list: async (req, res) => {
+    const data = await BlogCategory.find();
 
+    res.status(200).send({
+      error: false,
+      result: data,
+    });
+  },
+
+  // CRUD ->
+
+  create: async (req, res) => {
     const data = await BlogCategory.create(req.body);
     // console.log(data)
 
