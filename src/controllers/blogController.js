@@ -85,8 +85,8 @@ module.exports.blogPost = {
     // const data = await BlogPost.find({ ...filter }, { ...select });
     const data = await BlogPost.find(
       {},
-      { _id: 0, categoryId: 1, title: 1, content: 1 }
-    );
+      { categoryId: 1, title: 1, content: 1 }
+    ).populate("categoryId"); 
 
     res.status(200).send({
       error: false,
@@ -106,7 +106,7 @@ module.exports.blogPost = {
   },
 
   read: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId });
+    const data = await BlogPost.findOne({ _id: req.params.postId }).populate("categoryId");
 
     res.status(200).send({
       error: false,
