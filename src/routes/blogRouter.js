@@ -21,5 +21,7 @@ router.route('/category')
 
     router.route('/category/:categoryId')
     .get(blogCategory.read)
+    .put(blogCategory.update)
+    .patch(blogCategory.update)
 /* ------------------------------------------------------- */
 module.exports = router

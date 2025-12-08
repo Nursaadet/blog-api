@@ -40,6 +40,7 @@ module.exports.blogCategory = {
     res.status(200).send({
     error: false,
     result: data
+
 })
 
 },
@@ -53,7 +54,8 @@ module.exports.blogCategory = {
     res.status(202).send({
 
       error: false,
-      result: data
+      result: data,
+      new : await BlogCategory.findOne({ _id: req.params.categoryId})
     })
 }
 
