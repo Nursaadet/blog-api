@@ -82,7 +82,11 @@ module.exports.blogCategory = {
 
 module.exports.blogPost = {
   list: async (req, res) => {
-    const data = await BlogPost.find();
+    // const data = await BlogPost.find({ ...filter }, { ...select });
+    const data = await BlogPost.find(
+      {},
+      { _id: 0, categoryId: 1, title: 1, content: 1 }
+    );
 
     res.status(200).send({
       error: false,
@@ -94,7 +98,6 @@ module.exports.blogPost = {
 
   create: async (req, res) => {
     const data = await BlogPost.create(req.body);
-    
 
     res.status(201).send({
       error: false,
@@ -112,10 +115,7 @@ module.exports.blogPost = {
   },
 
   update: async (req, res) => {
-    const data = await BlogPost.UpdateOne(
-      { _id: req.params.postId },
-      req.body
-    );
+    const data = await BlogPost.UpdateOne({ _id: req.params.postId }, req.body);
 
     res.status(202).send({
       error: false,
