@@ -34,6 +34,7 @@ module.exports.blogCategory = {
     // const categoryId = req.params.categoryId;
     // const data = await BlogCategory.findOne({ _id: categoryId });
     // const data = await BlogCategory.findOById({ req.params.categoryId });
+    // const data = await BlogCategory.findOne({ ...filter});
     const data = await BlogCategory.findOne({ _id: req.params.categoryId });
   
 
@@ -57,7 +58,26 @@ module.exports.blogCategory = {
       result: data,
       new : await BlogCategory.findOne({ _id: req.params.categoryId})
     })
-}
+}, 
+
+  delete: async (req, res) => {
+    const data = await BlogCategory.deleteOne({ _id: req.params.categoryId });
+    console.log(data)
+
+    // res.status(204).send({
+    //   error: false,
+    //   result: data,
+
+    // })
+    if (data.deletedCount > 0) {
+      res.status(204)
+    }
+    else {
+      res.errorStatusCode = 404
+      throw new Error('Not found')
+      error: true
+    }
+  }
 
 }
 
