@@ -27,9 +27,37 @@ module.exports.blogCategory = {
     res.status(201).send({
       error: false,
       result: data,
-    });
+    })
   },
-};
+
+  read: async (req, res) => {
+    // const categoryId = req.params.categoryId;
+    // const data = await BlogCategory.findOne({ _id: categoryId });
+    // const data = await BlogCategory.findOById({ req.params.categoryId });
+    const data = await BlogCategory.findOne({ _id: req.params.categoryId });
+  
+
+    res.status(200).send({
+    error: false,
+    result: data
+})
+
+},
+
+  update: async (req, res) => {
+  // const data = await BlogCategory.UpdateOne({...filter}, {...data})
+    const data = await BlogCategory.UpdateOne({_id: req.params.categoryId}, req.body)
+  //  const data = await BlogCategory.findByIdAndUpdate( req.params.categoryId, req.body)
+
+
+    res.status(202).send({
+
+      error: false,
+      result: data
+    })
+}
+
+}
 
 /* ------------------------------------------------------- */
 // BlogPost Controller:
