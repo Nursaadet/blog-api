@@ -82,10 +82,22 @@ module.exports.blogCategory = {
 
 module.exports.blogPost = {
   list: async (req, res) => {
+    console.log(req.query);
+
+    // SEARCHING & SORTING & PAGINATION
+
+    // FILTERING:
+    // URL?filter[fieldName1]=value1&filter[fieldName2]=value2
+
+    // SEARCHING:
+    // URL?search[fieldName1]=value1&search[fieldName2]=value2
+
+    // SORTING:
+    // URL?sort[fieldName1]=value1&sort[fieldName2]=value2
+
     // const data = await BlogPost.find({ ...filter }, { ...select });
     // const data = await BlogPost.find({}, { categoryId: true, title: true, content: true }).populate('categoryId')
-        const data = await BlogPost.find().populate('categoryId')
-
+    const data = await BlogPost.find().populate("categoryId");
 
     res.status(200).send({
       error: false,
@@ -96,11 +108,10 @@ module.exports.blogPost = {
   // CRUD ->
 
   create: async (req, res) => {
+    req.body.userId = req.user?._id;
 
-    req.body.userId = req.user?._id
+    req.body.content += ` Author: ${req.user?.firstName} ${req.user?.lastName}`;
 
-     req.body.content += ` Author: ${req.user?.firstName} ${req.user?.lastName}` 
-     
     const data = await BlogPost.create(req.body);
 
     res.status(201).send({
@@ -110,7 +121,9 @@ module.exports.blogPost = {
   },
 
   read: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId }).populate("categoryId");
+    const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
+      "categoryId"
+    );
 
     res.status(200).send({
       error: false,
