@@ -72,35 +72,42 @@ const BlogCategorySchema = new mongoose.Schema(
 /* ------------------------------------------------------- */
 // BlogPost Schema:
 
-const BlogPostSchema = new mongoose.Schema({
-
+const BlogPostSchema = new mongoose.Schema(
+  {
     // _id
-
-    categoryId: { // Default Relation: ManyToOne
-        type: mongoose.Schema.Types.ObjectId, // Hexadecimal Format: 'fedcba9876543210'
-        ref: 'BlogCategory', // ID hangi Model'e ait. (mongoose.model('ModelName', Schema))
-        required: true,
-        // unique: true, // Convert to OneToOne Relation.
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-     title: {
-        type: String,
-        trim: true,
-        required: true
+
+    categoryId: {
+      // Default Relation: ManyToOne
+      type: mongoose.Schema.Types.ObjectId, // Hexadecimal Format: 'fedcba9876543210'
+      ref: "BlogCategory", // ID hangi Model'e ait. (mongoose.model('ModelName', Schema))
+      required: true,
+      // unique: true, // Convert to OneToOne Relation.
+    },
+    title: {
+      type: String,
+      trim: true,
+      required: true,
     },
 
     content: {
-        type: String,
-        trim: true,
-        required: true
+      type: String,
+      trim: true,
+      required: true,
     },
 
     // createdAt // timestamps: true
     // updatedAt // timestamps: true
-
-}, {
-    collection: 'blogPosts',
-    timestamps: true
-})
+  },
+  {
+    collection: "blogPosts",
+    timestamps: true,
+  }
+);
 
 // Set Model:
 // const BlogPost = mongoose.model('BlogPost', BlogPostSchema)
@@ -114,6 +121,6 @@ const BlogPostSchema = new mongoose.Schema({
 
 /* ------------------------------------------------------- */
 module.exports = {
-    BlogCategory: mongoose.model('BlogCategory', BlogCategorySchema),
-    BlogPost: mongoose.model('BlogPost', BlogPostSchema)
-}
+  BlogCategory: mongoose.model("BlogCategory", BlogCategorySchema),
+  BlogPost: mongoose.model("BlogPost", BlogPostSchema),
+};
