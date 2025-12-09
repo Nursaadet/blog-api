@@ -28,8 +28,9 @@ require('express-async-errors')
 
 const session = require('cookie-session') // Session Middleware
 
-app.use(session({
+app.use(session({  // General Settings.
     secret: process.env.SECRET_KEY, // Cookie datası şifreleme anahtarı
+    // maxAge: 1000 * 60 * 60 * 24 * 3 // miliSeconds // 3 Days
 }))
 /* ------------------------------------------------------- */
 
