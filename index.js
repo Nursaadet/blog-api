@@ -29,6 +29,7 @@ app.all('/', (req, res) => {
 
 /* ------------------------------------------------------- */
 // Routes:
+app.use('/auth', require('./src/routes/authRouter')) // User Model - Login/Logout
 app.use('/user', require('./src/routes/userRouter')) // User Model
 app.use('/blog', require('./src/routes/blogRouter')) // BlogCategory & BlogPost
 
