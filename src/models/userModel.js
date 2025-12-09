@@ -35,6 +35,14 @@ const UserSchema = new mongoose.Schema(
       // unique: [true, 'Email must be unique.'], // Not Supported.
       // required: true,
       required: [true, "Email is required."],
+      validate: (email) => {
+        // Eğer return=true ise kaydeder.
+        if (email.includes("@") && email.includes(".")) {
+          return true;
+        } else {
+          return false;
+        }
+      },
     },
 
     password: {
@@ -42,7 +50,8 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       // required: true,
       required: [true, "Password is required."],
-      set: (password) => passwordEncrypt(password),
+      //   set: (password) => passwordEncrypt(password),
+      set: passwordEncrypt,
       // Bir alana veri kaydedilmeden önce çalışır.
       // Yani veri database’e gitmeden hemen önce bu fonksiyon çalışır.,
       // return edilen data kaydedilir.
