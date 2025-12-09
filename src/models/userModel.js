@@ -5,7 +5,7 @@
 
 const mongoose = require("mongoose");
 
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 // Password Encrypt (PBKDF2 Method):
 // https://nodejs.org/api/crypto.html#cryptopbkdf2syncpassword-salt-iterations-keylen-digest
@@ -26,6 +26,10 @@ const passwordEncrypt = function (password) {
 };
 /* ------------------------------------------------------- */
 
+// call from file:
+
+const passwordEncrypt = require("../helpers/passwordEncrypt");
+
 const UserSchema = new mongoose.Schema(
   {
     email: {
@@ -36,24 +40,24 @@ const UserSchema = new mongoose.Schema(
       // required: true,
       required: [true, "Email is required."],
       // validate: (email) => { // Eğer return=true ise kaydeder.
-        //     if (email.includes('@') && email.includes('.')) {
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // }
-        // validate: (email) => (email.includes('@') && email.includes('.'))
-        validate: [
-            (email) => (email.includes('@') && email.includes('.')),
-            'Email type is incorrect.'
-        ]
-        // validate: (email) => { // Eğer return=true ise kaydeder.
-        //     if (email.includes('@') && email.includes('.')) {
-        //         return true
-        //     } else {
-        //         throw new Error('Email type is incorrect: ' + email)
-        //     }
-        // }
+      //     if (email.includes('@') && email.includes('.')) {
+      //         return true
+      //     } else {
+      //         return false
+      //     }
+      // }
+      // validate: (email) => (email.includes('@') && email.includes('.'))
+      validate: [
+        (email) => email.includes("@") && email.includes("."),
+        "Email type is incorrect.",
+      ],
+      // validate: (email) => { // Eğer return=true ise kaydeder.
+      //     if (email.includes('@') && email.includes('.')) {
+      //         return true
+      //     } else {
+      //         throw new Error('Email type is incorrect: ' + email)
+      //     }
+      // }
     },
 
     password: {
@@ -63,23 +67,24 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Password is required."],
       //   set: (password) => passwordEncrypt(password),
       // set: passwordEncrypt,
-        // Set methodu validate methodundan önce çalışır. Dolayısı ile validate datası her zaman aynı formattadır.
-        // set: (password) => {
-        //     if (password.length >= 8) {
-        //         return passwordEncrypt(password)
-        //     } else {
-        //         return 'wrong'
-        //     }
-        // },
-        // validate: (password) => {
-        //     if (password == 'wrong') {
-        //         return false
-        //     } else {
-        //         return true
-        //     }
-        // },
-        set: (password) => (password.length >= 8 ?  passwordEncrypt(password) : 'wrong'),
-        validate: (password) => (password != 'wrong') // Güncelleme yaparken default olarak validate çalışmaz. // { runValidators: true }
+      // Set methodu validate methodundan önce çalışır. Dolayısı ile validate datası her zaman aynı formattadır.
+      // set: (password) => {
+      //     if (password.length >= 8) {
+      //         return passwordEncrypt(password)
+      //     } else {
+      //         return 'wrong'
+      //     }
+      // },
+      // validate: (password) => {
+      //     if (password == 'wrong') {
+      //         return false
+      //     } else {
+      //         return true
+      //     }
+      // },
+      set: (password) =>
+        password.length >= 8 ? passwordEncrypt(password) : "wrong",
+      validate: (password) => password != "wrong", // Güncelleme yaparken default olarak validate çalışmaz. // { runValidators: true }
       // Bir alana veri kaydedilmeden önce çalışır.
       // Yani veri database’e gitmeden hemen önce bu fonksiyon çalışır.,
       // return edilen data kaydedilir.
