@@ -38,13 +38,14 @@ app.use(
 /* ------------------------------------------------------- */
 // Middleware for check user data from session:
 
-app.use(require('./src/middlewares/userControl'))
+app.use(require("./src/middlewares/userControl"));
 
 /* ------------------------------------------------------- */
 
 app.all("/", (req, res) => {
   res.send({
     session: req.session,
+    user: req.user,
     message: "WELCOME TO BLOG API",
   });
 });
@@ -58,7 +59,7 @@ app.use("/blog", require("./src/routes/blogRouter")); // BlogCategory & BlogPost
 /* ------------------------------------------------------- */
 
 // Catch Errors:
-app.use(require('./src/middlewares/errorHandler'))
+app.use(require("./src/middlewares/errorHandler"));
 
 /* ------------------------------------------------------- */
 
