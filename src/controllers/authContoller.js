@@ -17,6 +17,22 @@ module.exports.auth = {
       const user = await User.findOne({ email });
 
       if (user) {
+        // User: OK.
+
+                if (user.password == passwordEncrypt(password)) {
+                // Password:OK
+
+                    res.send({
+                        message: 'Login is successfull.'
+                    })
+
+                } else {
+                    res.errorStatusCode = 401
+                    throw new Error('Login parameters are not true.')
+                }
+            } else {
+                res.errorStatusCode = 401
+                throw new Error('This user not found.')
       }
     } else {
       res.errorStatusCode = 401;
