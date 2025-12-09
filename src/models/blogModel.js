@@ -81,8 +81,8 @@ const BlogPostSchema = new mongoose.Schema(
       required: true,
     },
 
-    categoryId: {
-      // Default Relation: ManyToOne
+    blogCategoryId: {
+      // Default Relation: ManyToOne: {
       type: mongoose.Schema.Types.ObjectId, // Hexadecimal Format: 'fedcba9876543210'
       ref: "BlogCategory", // ID hangi Model'e ait. (mongoose.model('ModelName', Schema))
       required: true,
@@ -98,6 +98,10 @@ const BlogPostSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+    },
+    published: {
+      type: Boolean,
+      default: true,
     },
 
     // createdAt // timestamps: true
