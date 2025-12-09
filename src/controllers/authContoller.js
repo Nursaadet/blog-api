@@ -50,7 +50,15 @@ module.exports.auth = {
     }
   },
 
-  logout: async (req, res) => {},
+  logout: async (req, res) => {
+    // Session/Cookie datasını silmek için null yeterli:
+        req.session = null
+
+        res.status(200).send({
+            error: false,
+            message: 'Logout: OK'
+        })
+  },
 };
 
 /* ------------------------------------------------------- */
