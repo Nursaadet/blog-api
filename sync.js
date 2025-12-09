@@ -41,7 +41,7 @@ module.exports = async () => {
     });
   }
   // Finish:
-    console.le('* Syncronized.')
+    console.log('* Syncronized.')
 
 };
 
