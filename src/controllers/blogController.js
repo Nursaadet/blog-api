@@ -100,7 +100,8 @@ module.exports.blogPost = {
 
     req.body.userId = req.user?._id
 
-    
+     req.body.content += ` Author: ${req.user?.firstName} ${req.user?.lastName}` 
+     
     const data = await BlogPost.create(req.body);
 
     res.status(201).send({
