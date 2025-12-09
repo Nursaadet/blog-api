@@ -49,7 +49,8 @@ module.exports.user = {
 
     update: async (req, res) => {
 
-        const data = await User.updateOne({ _id: req.params.userId }, req.body)
+        // const data = await User.updateOne({ _id: req.params.userId }, req.body)
+        const data = await User.updateOne({ _id: req.params.userId }, req.body, { runValidators: true }) // Validate aktif et.
 
         res.status(202).send({
             error: false,

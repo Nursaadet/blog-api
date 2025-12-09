@@ -63,6 +63,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Password is required."],
       //   set: (password) => passwordEncrypt(password),
       set: passwordEncrypt,
+      // Set methodu validate methodundan önce çalışır. DOlayısı ile validate data her zaman aynı formattadır. (validate yapamayız)
       // Bir alana veri kaydedilmeden önce çalışır.
       // Yani veri database’e gitmeden hemen önce bu fonksiyon çalışır.,
       // return edilen data kaydedilir.
