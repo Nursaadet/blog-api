@@ -27,9 +27,18 @@ module.exports.auth = {
           //     email: user.email,
           //     password: user.password
           // }
-          req.session.email = user.email;
+          // req.session.email = user.email
+          req.session._id = user._id;
           req.session.password = user.password;
           /* SESSION */
+
+          /* COOKIE */
+          if (req.body?.remindMe == true) {
+            req.session.remindMe = true;
+            // Set MaxAge to 3 Days:
+            req.sessionOptions.maxAge = 1000 * 60 * 60 * 24 * 3;
+          }
+          /* COOKIE */
 
           res.status(200).send({
             error: false,
@@ -52,12 +61,12 @@ module.exports.auth = {
 
   logout: async (req, res) => {
     // Session/Cookie datasını silmek için null yeterli:
-        req.session = null
+    req.session = null;
 
-        res.status(200).send({
-            error: false,
-            message: 'Logout: OK'
-        })
+    res.status(200).send({
+      error: false,
+      message: "Logout: OK",
+    });
   },
 };
 
