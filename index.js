@@ -26,6 +26,11 @@ require('express-async-errors')
 // https://www.npmjs.com/package/cookie-session
 //* $ npm i cookie-session
 
+const session = require('cookie-session') // Session Middleware
+
+app.use(session({
+    secret: process.env.SECRET_KEY, // Cookie datası şifreleme anahtarı
+}))
 /* ------------------------------------------------------- */
 
 app.all('/', (req, res) => {
