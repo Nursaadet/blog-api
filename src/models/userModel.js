@@ -14,13 +14,15 @@ const crypto = require("node:crypto");
 
 // Parameters:
 const keyCode = process.env.SECRET_KEY; // Şifreleme anahtarı.
-const loopCount = 10_000 // Döngü sayısı
+const loopCount = 10_000; // Döngü sayısı
 const charCount = 32; // write 32 for 64
 const encType = "sha512"; // Şifreleme algoritması.
 
 // Return encrypted password:
 const passwordEncrypt = function (password) {
-   return crypto.pbkdf2Sync(password, keyCode, loopCount, charCount, encType).toString('hex')
+  return crypto
+    .pbkdf2Sync(password, keyCode, loopCount, charCount, encType)
+    .toString("hex");
 };
 /* ------------------------------------------------------- */
 
@@ -40,11 +42,10 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       // required: true,
       required: [true, "Password is required."],
-      set: (password) => {
-        // Bir alana veri kaydedilmeden önce çalışır.
-        // Yani veri database’e gitmeden hemen önce bu fonksiyon çalışır.,
-        // return edilen data kaydedilir.
-      },
+      set: (password) => passwordEncrypt(password),
+      // Bir alana veri kaydedilmeden önce çalışır.
+      // Yani veri database’e gitmeden hemen önce bu fonksiyon çalışır.,
+      // return edilen data kaydedilir.
     },
 
     firstName: String,
