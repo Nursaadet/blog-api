@@ -36,6 +36,11 @@ app.use(
   })
 );
 /* ------------------------------------------------------- */
+// Middleware for check user data from session:
+
+app.use(require('./src/middlewares/userControl'))
+
+/* ------------------------------------------------------- */
 
 app.all("/", (req, res) => {
   res.send({
