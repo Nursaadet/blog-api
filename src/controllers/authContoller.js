@@ -19,20 +19,30 @@ module.exports.auth = {
       if (user) {
         // User: OK.
 
-                if (user.password == passwordEncrypt(password)) {
-                // Password:OK
+        if (user.password == passwordEncrypt(password)) {
+          // Password:OK
 
-                    res.send({
-                        message: 'Login is successfull.'
-                    })
+          /* SESSION */
+          // req.session = {
+          //     email: user.email,
+          //     password: user.password
+          // }
+          req.session.email = user.email;
+          req.session.password = user.password;
+          /* SESSION */
 
-                } else {
-                    res.errorStatusCode = 401
-                    throw new Error('Login parameters are not true.')
-                }
-            } else {
-                res.errorStatusCode = 401
-                throw new Error('This user not found.')
+          res.status(200).send({
+            error: false,
+            message: "Login: OK",
+            user,
+          });
+        } else {
+          res.errorStatusCode = 401;
+          throw new Error("Login parameters are not true.");
+        }
+      } else {
+        res.errorStatusCode = 401;
+        throw new Error("This user not found.");
       }
     } else {
       res.errorStatusCode = 401;
