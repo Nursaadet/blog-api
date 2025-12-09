@@ -35,14 +35,25 @@ const UserSchema = new mongoose.Schema(
       // unique: [true, 'Email must be unique.'], // Not Supported.
       // required: true,
       required: [true, "Email is required."],
-      validate: (email) => {
-        // Eğer return=true ise kaydeder.
-        if (email.includes("@") && email.includes(".")) {
-          return true;
-        } else {
-          return false;
-        }
-      },
+      // validate: (email) => { // Eğer return=true ise kaydeder.
+        //     if (email.includes('@') && email.includes('.')) {
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+        // validate: (email) => (email.includes('@') && email.includes('.'))
+        validate: [
+            (email) => (email.includes('@') && email.includes('.')),
+            'Email type is incorrect.'
+        ]
+        // validate: (email) => { // Eğer return=true ise kaydeder.
+        //     if (email.includes('@') && email.includes('.')) {
+        //         return true
+        //     } else {
+        //         throw new Error('Email type is incorrect: ' + email)
+        //     }
+        // }
     },
 
     password: {
