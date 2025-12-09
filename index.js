@@ -20,6 +20,11 @@ require('./src/dbConnection')()
 
 // Catch error from async:
 require('express-async-errors')
+/* ------------------------------------------------------- */
+// SessionCookies:
+// http://expressjs.com/en/resources/middleware/cookie-session.html
+// https://www.npmjs.com/package/cookie-session
+//* $ npm i cookie-session
 
 /* ------------------------------------------------------- */
 
