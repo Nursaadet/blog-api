@@ -6,7 +6,7 @@ const { User } = require('../models/userModel')
 /* ------------------------------------------------------- */
 // Auth Controller:
 
-module.exports = {
+module.exports.auth = {
 
     login: async (req, res) => {
 
