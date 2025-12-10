@@ -108,7 +108,8 @@ module.exports.blogPost = {
     // PAGINATION:
     // URL?page=3&limit=15&skip=20
     // LIMIT:
-    let limit = Number(req.query?.limit || 10);
+    let limit = Number(req.query?.limit)
+        limit = limit > 0 ? limit :  Number(process.env?.PAGE_SIZE || 20)
     console.log(limit, typeof limit);
 
     const data = await (await BlogPost.find({ ...filter, ...search }))
