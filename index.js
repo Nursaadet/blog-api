@@ -39,6 +39,8 @@ app.use(
 // Middleware for check user data from session:
 
 app.use(require("./src/middlewares/userControl"));
+// Middleware for queryHandler (Search, Sort, Page)
+app.use(require("./src/middlewares/findSearchSortPage"));
 
 /* ------------------------------------------------------- */
 
@@ -47,7 +49,7 @@ app.all("/", (req, res) => {
     session: req.session,
     user: req.user,
     message: "WELCOME TO BLOG API",
-    isLogin: (req.user ? true : false)
+    isLogin: req.user ? true : false,
   });
 });
 
@@ -64,7 +66,7 @@ app.use(require("./src/middlewares/errorHandler"));
 
 /* ------------------------------------------------------- */
 
-app.listen(PORT, () => console.log('Running: http://127.0.0.1:' + PORT))
+app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 
 /* ------------------------------------------------------- */
 //! Syncronization: (Once Run)
