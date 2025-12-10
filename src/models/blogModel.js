@@ -45,7 +45,6 @@ const ModelSchema = new mongoose.Schema(
 )
 
   const ModelName = mongoose.model('ModelName', ModelSchema)
-);
 
 /* ------------------------------------------------------- */
 // BlogCategory Schema:

@@ -82,22 +82,33 @@ module.exports.blogCategory = {
 
 module.exports.blogPost = {
   list: async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
 
-    // SEARCHING & SORTING & PAGINATION
+    // FILTERING & SEARCHING & SORTING & PAGINATION
 
     // FILTERING:
     // URL?filter[fieldName1]=value1&filter[fieldName2]=value2
+    const filter = req.query?.filter || {}
+        console.log(filter)
 
     // SEARCHING:
     // URL?search[fieldName1]=value1&search[fieldName2]=value2
 
+     const search = req.query?.search || {}
+        // console.log(search)
+        // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+        for (let key in search)
+            search[key] = { $regex: search[key] }
+        // console.log(search)
+
     // SORTING:
     // URL?sort[fieldName1]=value1&sort[fieldName2]=value2
 
+    const data = await BlogPost.find({ ...filter, ...search })
+
     // const data = await BlogPost.find({ ...filter }, { ...select });
     // const data = await BlogPost.find({}, { categoryId: true, title: true, content: true }).populate('categoryId')
-    const data = await BlogPost.find().populate("categoryId");
+    // const data = await BlogPost.find().populate("categoryId");
 
     res.status(200).send({
       error: false,
