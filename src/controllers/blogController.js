@@ -88,23 +88,25 @@ module.exports.blogPost = {
 
     // FILTERING:
     // URL?filter[fieldName1]=value1&filter[fieldName2]=value2
-    const filter = req.query?.filter || {}
-        console.log(filter)
+    const filter = req.query?.filter || {};
+    console.log(filter);
 
     // SEARCHING:
     // URL?search[fieldName1]=value1&search[fieldName2]=value2
 
-     const search = req.query?.search || {}
-        // console.log(search)
-        // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
-        for (let key in search)
-            search[key] = { $regex: search[key] }
-        // console.log(search)
+    const search = req.query?.search || {};
+    // console.log(search)
+    // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+    for (let key in search) search[key] = { $regex: search[key] };
+    // console.log(search)
 
     // SORTING:
-    // URL?sort[fieldName1]=value1&sort[fieldName2]=value2
+    // Cancelled: URL?sort[fieldName1]=1&sort[fieldName2]=-1 // Mongoose 8.0 > deprecated
+    // URL?sort[fieldName1]=asc&sort[fieldName2]=desc
+    const sort = req.query?.sort || {};
+    // console.log(sort)
 
-    const data = await BlogPost.find({ ...filter, ...search })
+    const data = await (await BlogPost.find({ ...filter, ...search })).sort(sort)
 
     // const data = await BlogPost.find({ ...filter }, { ...select });
     // const data = await BlogPost.find({}, { categoryId: true, title: true, content: true }).populate('categoryId')
