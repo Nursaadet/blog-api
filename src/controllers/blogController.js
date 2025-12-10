@@ -108,17 +108,22 @@ module.exports.blogPost = {
     // PAGINATION:
     // URL?page=3&limit=15&skip=20
     // LIMIT:
-    let limit = Number(req.query?.limit)
-        limit = limit > 0 ? limit :  Number(process.env?.PAGE_SIZE || 20)
+    let limit = Number(req.query?.limit);
+    limit = limit > 0 ? limit : Number(process.env?.PAGE_SIZE || 20);
     console.log(limit, typeof limit);
 
-    const data = await (await BlogPost.find({ ...filter, ...search }))
-      .sort(sort)
-      .limit(limit);
+    // PAGE:
+    let page = Number(req.query?.page);
+    page = page > 0 ? page : 1;
+    // SKIP:
+    let skip = Number(req.query?.skip);
+    skip = skip > 0 ? skip : (page - 1) * limit;
 
-    // const data = await BlogPost.find({ ...filter }, { ...select });
-    // const data = await BlogPost.find({}, { categoryId: true, title: true, content: true }).populate('categoryId')
-    // const data = await BlogPost.find().populate("categoryId");
+    // RUN:
+    const data = await BlogPost.find({ ...filter, ...search })
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
 
     res.status(200).send({
       error: false,
