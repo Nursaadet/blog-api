@@ -43,6 +43,8 @@ module.exports = async (req, res, next) => {
   // const data = await BlogPost.find({ ...filter, ...search }).sort(sort).skip(skip).limit(limit)
   // const data = await BlogPost.find({ ...filter, ...search }).sort(sort).skip(skip).limit(limit).populate('categoryId')
 
+  // GetModelList:
+
   res.getModelList = async function (Model, populate = null) {
     return await Model.find({ ...filter, ...search })
       .sort(sort)
@@ -50,7 +52,29 @@ module.exports = async (req, res, next) => {
       .limit(limit)
       .populate(populate);
   };
-  next()
+  // Details:
+  res.getModelListDetails = async function (Model) {
+    const data = Model.find({ ...filter, ...search });
+
+    let details = {
+      filter,
+      search,
+      sort,
+      skip,
+      limit,
+      page,
+      pages: {
+        previous: page > 1 ? page - 1 : false,
+        current: page,
+        next: page + 1,
+        total: Math.ceil(data.length / limit),
+      },
+      totalRecords: data.length,
+    };
+
+    return details;
+  };
+  next();
 };
 
 /* ------------------------------------------------------- */
