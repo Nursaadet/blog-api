@@ -110,7 +110,7 @@ module.exports.blogPost = {
     // LIMIT:
     let limit = Number(req.query?.limit);
     limit = limit > 0 ? limit : Number(process.env?.PAGE_SIZE || 20);
-    console.log(limit, typeof limit);
+    // console.log(limit, typeof limit)
 
     // PAGE:
     let page = Number(req.query?.page);
@@ -120,10 +120,12 @@ module.exports.blogPost = {
     skip = skip > 0 ? skip : (page - 1) * limit;
 
     // RUN:
+    // const data = await BlogPost.find({ ...filter, ...search }).sort(sort).skip(skip).limit(limit)
     const data = await BlogPost.find({ ...filter, ...search })
       .sort(sort)
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .populate("categoryId");
 
     res.status(200).send({
       error: false,
