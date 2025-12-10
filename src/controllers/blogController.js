@@ -105,8 +105,15 @@ module.exports.blogPost = {
     // URL?sort[fieldName1]=asc&sort[fieldName2]=desc
     const sort = req.query?.sort || {};
     // console.log(sort)
+    // PAGINATION:
+    // URL?page=3&limit=15&skip=20
+    // LIMIT:
+    let limit = Number(req.query?.limit || 10);
+    console.log(limit, typeof limit);
 
-    const data = await (await BlogPost.find({ ...filter, ...search })).sort(sort)
+    const data = await (await BlogPost.find({ ...filter, ...search }))
+      .sort(sort)
+      .limit(limit);
 
     // const data = await BlogPost.find({ ...filter }, { ...select });
     // const data = await BlogPost.find({}, { categoryId: true, title: true, content: true }).populate('categoryId')
